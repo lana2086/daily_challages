@@ -3,20 +3,32 @@ info:
   # Do not change the title, if the title changes, the import paths will be broken
   title: Api
   version: 0.1.0
-  description: API specification
+  description: Daily Challenge Bingo API
 servers:
   - url: /api
     description: Base API path
 tags:
   - name: health
     description: Health operations
+  - name: auth
+    description: Authentication
+  - name: participants
+    description: Participant management
+  - name: cards
+    description: Bingo card management
+  - name: boxes
+    description: Bingo box management
+  - name: reflections
+    description: Daily reflections
+  - name: dashboard
+    description: Dashboard summaries
+
 paths:
   /healthz:
     get:
       operationId: healthCheck
       tags: [health]
       summary: Health check
-      description: Returns server health status
       responses:
         "200":
           description: Healthy
@@ -24,13 +36,734 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/HealthStatus"
+
+  # ── Auth ─────────────────────────────────────────────────────────────────────
+
+  /auth/login:
+    post:
+      operationId: login
+      tags: [auth]
+      summary: Login
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/LoginInput"
+      responses:
+        "200":
+          description: Logged in
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+        "401":
+          description: Invalid credentials
+
+  /auth/logout:
+    post:
+      operationId: logout
+      tags: [auth]
+      summary: Logout
+      responses:
+        "200":
+          description: Logged out
+
+  /auth/me:
+    get:
+      operationId: getMe
+      tags: [auth]
+      summary: Get current user
+      responses:
+        "200":
+          description: Current user
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+        "401":
+          description: Not authenticated
+
+  # ── Participants ──────────────────────────────────────────────────────────────
+
+  /participants:
+    get:
+      operationId: listParticipants
+      tags: [participants]
+      summary: List all participants (admin only)
+      responses:
+        "200":
+          description: List of participants
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Participant"
+
+    post:
+      operationId: createParticipant
+      tags: [participants]
+      summary: Create a participant (admin only)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ParticipantInput"
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Participant"
+
+  /participants/{id}:
+    get:
+      operationId: getParticipant
+      tags: [participants]
+      summary: Get a participant
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Participant
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Participant"
+        "404":
+          description: Not found
+
+    patch:
+      operationId: updateParticipant
+      tags: [participants]
+      summary: Update a participant (admin only)
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ParticipantUpdate"
+      responses:
+        "200":
+          description: Updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Participant"
+
+    delete:
+      operationId: deleteParticipant
+      tags: [participants]
+      summary: Delete a participant (admin only)
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "204":
+          description: Deleted
+
+  /participants/{id}/progress:
+    get:
+      operationId: getParticipantProgress
+      tags: [participants]
+      summary: Get progress for a participant (admin only)
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Participant progress
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ParticipantProgress"
+
+  # ── Bingo Cards ───────────────────────────────────────────────────────────────
+
+  /bingo-cards:
+    get:
+      operationId: listBingoCards
+      tags: [cards]
+      summary: List bingo cards (admin sees all, participant sees own)
+      responses:
+        "200":
+          description: List of bingo cards
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/BingoCard"
+
+    post:
+      operationId: createBingoCard
+      tags: [cards]
+      summary: Create a bingo card for a participant (admin only)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/BingoCardInput"
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BingoCard"
+
+  /bingo-cards/{id}:
+    get:
+      operationId: getBingoCard
+      tags: [cards]
+      summary: Get a bingo card with its boxes
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Bingo card with boxes
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BingoCardWithBoxes"
+        "404":
+          description: Not found
+
+    patch:
+      operationId: updateBingoCard
+      tags: [cards]
+      summary: Update a bingo card (admin only)
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/BingoCardUpdate"
+      responses:
+        "200":
+          description: Updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BingoCard"
+
+    delete:
+      operationId: deleteBingoCard
+      tags: [cards]
+      summary: Delete a bingo card (admin only)
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "204":
+          description: Deleted
+
+  # ── Bingo Boxes ───────────────────────────────────────────────────────────────
+
+  /bingo-boxes/{id}:
+    get:
+      operationId: getBingoBox
+      tags: [boxes]
+      summary: Get a single bingo box
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Bingo box
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BingoBox"
+
+    patch:
+      operationId: updateBingoBox
+      tags: [boxes]
+      summary: Update a bingo box (admin only - content, category, reset)
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/BingoBoxUpdate"
+      responses:
+        "200":
+          description: Updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BingoBox"
+
+  /bingo-boxes/{id}/reveal:
+    post:
+      operationId: revealBingoBox
+      tags: [boxes]
+      summary: Reveal a bingo box (participant action)
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Box revealed
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BingoBox"
+
+  /bingo-boxes/{id}/complete:
+    post:
+      operationId: completeBingoBox
+      tags: [boxes]
+      summary: Mark a bingo box as done (participant action)
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Box completed
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BingoBox"
+
+  # ── Reflections ───────────────────────────────────────────────────────────────
+
+  /reflections:
+    get:
+      operationId: listReflections
+      tags: [reflections]
+      summary: List reflections (admin sees all, participant sees own)
+      responses:
+        "200":
+          description: List of reflections
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Reflection"
+
+    post:
+      operationId: createReflection
+      tags: [reflections]
+      summary: Submit today's reflection (participant)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ReflectionInput"
+      responses:
+        "201":
+          description: Submitted
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Reflection"
+
+  /reflections/{id}:
+    get:
+      operationId: getReflection
+      tags: [reflections]
+      summary: Get a single reflection
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Reflection
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Reflection"
+
+    patch:
+      operationId: updateReflection
+      tags: [reflections]
+      summary: Update a reflection (participant, same day only)
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ReflectionUpdate"
+      responses:
+        "200":
+          description: Updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Reflection"
+
+  # ── Dashboard ─────────────────────────────────────────────────────────────────
+
+  /dashboard/summary:
+    get:
+      operationId: getDashboardSummary
+      tags: [dashboard]
+      summary: Get dashboard summary (admin gets group stats, participant gets personal stats)
+      responses:
+        "200":
+          description: Dashboard summary
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DashboardSummary"
+
 components:
   schemas:
     HealthStatus:
       type: object
+      required: [status]
       properties:
         status:
           type: string
-      required:
-        - status
 
+    # ── Auth ───────────────────────────────────────────────────────────────────
+
+    LoginInput:
+      type: object
+      required: [username, password]
+      properties:
+        username:
+          type: string
+        password:
+          type: string
+
+    User:
+      type: object
+      required: [id, name, username, role]
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        username:
+          type: string
+        email:
+          type: ["string", "null"]
+        role:
+          type: string
+          enum: [admin, participant]
+
+    # ── Participants ───────────────────────────────────────────────────────────
+
+    Participant:
+      type: object
+      required: [id, name, username, role, createdAt]
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        username:
+          type: string
+        email:
+          type: ["string", "null"]
+        role:
+          type: string
+          enum: [admin, participant]
+        createdAt:
+          type: string
+          format: date-time
+
+    ParticipantInput:
+      type: object
+      required: [name, username, password]
+      properties:
+        name:
+          type: string
+        username:
+          type: string
+        password:
+          type: string
+        email:
+          type: string
+
+    ParticipantUpdate:
+      type: object
+      properties:
+        name:
+          type: string
+        username:
+          type: string
+        password:
+          type: string
+        email:
+          type: string
+
+    ParticipantProgress:
+      type: object
+      required: [participantId, name, totalBoxes, hidden, revealed, completed, reflectionsCount]
+      properties:
+        participantId:
+          type: integer
+        name:
+          type: string
+        totalBoxes:
+          type: integer
+        hidden:
+          type: integer
+        revealed:
+          type: integer
+        completed:
+          type: integer
+        reflectionsCount:
+          type: integer
+
+    # ── Bingo Cards ────────────────────────────────────────────────────────────
+
+    BingoCard:
+      type: object
+      required: [id, userId, title, rows, cols, createdAt]
+      properties:
+        id:
+          type: integer
+        userId:
+          type: integer
+        participantName:
+          type: string
+        title:
+          type: string
+        rows:
+          type: integer
+        cols:
+          type: integer
+        createdAt:
+          type: string
+          format: date-time
+
+    BingoCardInput:
+      type: object
+      required: [userId, title, boxes]
+      properties:
+        userId:
+          type: integer
+        title:
+          type: string
+        boxes:
+          type: array
+          items:
+            $ref: "#/components/schemas/BingoBoxInput"
+
+    BingoCardUpdate:
+      type: object
+      properties:
+        title:
+          type: string
+
+    BingoCardWithBoxes:
+      type: object
+      required: [id, userId, title, rows, cols, createdAt, boxes]
+      properties:
+        id:
+          type: integer
+        userId:
+          type: integer
+        participantName:
+          type: string
+        title:
+          type: string
+        rows:
+          type: integer
+        cols:
+          type: integer
+        createdAt:
+          type: string
+          format: date-time
+        boxes:
+          type: array
+          items:
+            $ref: "#/components/schemas/BingoBox"
+
+    # ── Bingo Boxes ────────────────────────────────────────────────────────────
+
+    BingoBox:
+      type: object
+      required: [id, cardId, boxNumber, category, challengeText, isRevealed, isCompleted]
+      properties:
+        id:
+          type: integer
+        cardId:
+          type: integer
+        boxNumber:
+          type: integer
+        category:
+          type: string
+          enum: [Spirit, Mind, Body, Health, People]
+        challengeText:
+          type: string
+        isRevealed:
+          type: boolean
+        isCompleted:
+          type: boolean
+        revealedAt:
+          type: ["string", "null"]
+          format: date-time
+        completedAt:
+          type: ["string", "null"]
+          format: date-time
+
+    BingoBoxInput:
+      type: object
+      required: [boxNumber, category, challengeText]
+      properties:
+        boxNumber:
+          type: integer
+        category:
+          type: string
+          enum: [Spirit, Mind, Body, Health, People]
+        challengeText:
+          type: string
+
+    BingoBoxUpdate:
+      type: object
+      properties:
+        category:
+          type: string
+          enum: [Spirit, Mind, Body, Health, People]
+        challengeText:
+          type: string
+        isRevealed:
+          type: boolean
+        isCompleted:
+          type: boolean
+
+    # ── Reflections ────────────────────────────────────────────────────────────
+
+    Reflection:
+      type: object
+      required: [id, userId, date, whatIChose, whatIDid, impact, createdAt]
+      properties:
+        id:
+          type: integer
+        userId:
+          type: integer
+        participantName:
+          type: string
+        date:
+          type: string
+          format: date
+        whatIChose:
+          type: string
+        whatIDid:
+          type: string
+        impact:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+
+    ReflectionInput:
+      type: object
+      required: [whatIChose, whatIDid, impact]
+      properties:
+        whatIChose:
+          type: string
+        whatIDid:
+          type: string
+        impact:
+          type: string
+
+    ReflectionUpdate:
+      type: object
+      properties:
+        whatIChose:
+          type: string
+        whatIDid:
+          type: string
+        impact:
+          type: string
+
+    # ── Dashboard ──────────────────────────────────────────────────────────────
+
+    DashboardSummary:
+      type: object
+      required: [role]
+      properties:
+        role:
+          type: string
+          enum: [admin, participant]
+        # Admin stats
+        totalParticipants:
+          type: ["integer", "null"]
+        totalCards:
+          type: ["integer", "null"]
+        totalBoxesRevealed:
+          type: ["integer", "null"]
+        totalBoxesCompleted:
+          type: ["integer", "null"]
+        totalReflections:
+          type: ["integer", "null"]
+        recentReflections:
+          type: array
+          items:
+            $ref: "#/components/schemas/Reflection"
+        # Participant stats
+        myBoxesTotal:
+          type: ["integer", "null"]
+        myBoxesRevealed:
+          type: ["integer", "null"]
+        myBoxesCompleted:
+          type: ["integer", "null"]
+        myReflectionsCount:
+          type: ["integer", "null"]
+        hasReflectedToday:
+          type: ["boolean", "null"]

@@ -1,0 +1,316 @@
+Build a full web app called Daily Challenge Bingo for a church/youth spiritual growth activity.
+This is not a simple landing page. It must be a real web application with an admin panel, participant accounts, personalized bingo cards, hidden challenge boxes, and daily reflections.
+
+Tech Stack
+
+Use:
+
+- Flask (Python backend)
+- SQLite database
+- Bootstrap 5 for UI styling
+- Clean HTML/CSS/JavaScript
+- Organize the project properly so it can be edited later
+
+Main Concept
+
+The app is for a group activity where each participant gets a personalized Bingo card with daily challenges.
+Each bingo box starts hidden and is revealed when the participant clicks it.
+At the end of the day, the participant submits a short reflection.
+
+The theme is Christian self-growth / daily spiritual challenge, but the app should look modern, clean, and mature — not childish.
+
+---
+
+User Roles
+
+The app must have 2 roles:
+
+1) Admin
+
+The admin is the teacher/leader (Paula or another leader).
+Admin must have a secure login.
+
+2) Participant
+
+Participants log in and see their own personalized bingo card only.
+
+---
+
+Core Features
+
+A) Authentication
+
+Admin login
+
+- Admin can log in securely.
+
+Participant login
+
+- Each participant can log in with username + password.
+- After login, participants are redirected to their own dashboard.
+
+---
+
+B) Admin Panel
+
+Create a proper Admin Dashboard with a clean sidebar or top navigation.
+
+Admin must be able to:
+
+1. Create participants
+   
+   - name
+   - username
+   - password
+   - optional email
+
+2. View all participants
+
+3. Create a personalized bingo card for each participant
+   
+   - Each card should be 3x3 for now
+   - Each box contains:
+     - challenge text
+     - category
+   - Categories can be one of:
+     - Spirit
+     - Mind
+     - Body
+     - Health
+     - People
+
+4. Edit participant bingo cards
+   
+   - Update challenge text
+   - Change category
+   - Reset a box if needed
+
+5. View participant progress
+   For each participant, admin should be able to see:
+   
+   - which boxes are still hidden
+   - which boxes have been revealed
+   - which boxes have been marked done
+   - timestamps if possible
+
+6. View daily reflections
+   Admin should be able to see all reflections submitted by participants.
+
+---
+
+C) Participant Dashboard
+
+Each participant must have a dashboard that shows:
+
+1. Welcome section
+
+- Participant name
+- Short heading like: “Your Daily Challenge Bingo”
+
+2. Personalized Bingo Card
+
+Display a 3x3 Bingo grid.
+
+Each box must have 3 states:
+
+State 1: Hidden
+
+- The box should look closed/covered.
+- Show a button or label like:
+  - “Reveal”
+  - or “Open Challenge”
+- The challenge text should NOT be visible yet.
+
+State 2: Revealed
+
+- When participant clicks the box, the challenge is revealed.
+- The box now shows:
+  - challenge text
+  - category badge
+- Save that state in the database.
+
+State 3: Completed
+
+- Participant can click Mark as Done
+- Completed boxes should have a visual done state.
+
+Important:
+
+Participants should only be able to reveal and complete their own boxes.
+
+---
+
+D) Daily Reflection
+
+Below the bingo card, add an End of Day Reflection section.
+
+Participant should submit:
+
+1. What I chose today
+2. What I actually did
+3. What changed / what impact did it have?
+
+Save reflections in the database with:
+
+- participant id
+- date
+- reflection text fields
+
+Admin must be able to review these later.
+
+---
+
+Database Design
+
+Create proper database models.
+
+Suggested models:
+
+User
+
+- id
+- name
+- username
+- password_hash
+- role (admin or participant)
+
+BingoCard
+
+- id
+- user_id
+- title
+- rows
+- cols
+- created_at
+
+BingoBox
+
+- id
+- card_id
+- box_number
+- category
+- challenge_text
+- is_revealed
+- is_completed
+- revealed_at
+- completed_at
+
+DailyReflection
+
+- id
+- user_id
+- date
+- what_i_chose
+- what_i_did
+- impact
+- created_at
+
+You may improve this schema if needed, but keep it simple and maintainable.
+
+---
+
+UI / Design Requirements
+
+The app should look modern, calm, clean, and mature.
+It is for adults/young adults, not children.
+
+Design direction:
+
+- Soft neutral or elegant church-friendly palette
+- Clean cards
+- Good spacing
+- Rounded corners
+- Minimal icons if useful
+- Responsive layout
+- No childish bingo styling
+
+Suggested visual structure:
+
+- Login page
+- Admin dashboard with cards/tables
+- Participant dashboard with a centered bingo board
+- Reflection section below the board
+
+---
+
+Example Challenge Content
+
+Use sample challenge data for demo purposes, such as:
+
+Spirit
+
+- Pray for the people you want to invite to the lessons
+- Meditate on a passage from the Bible
+- Spend some time reviewing your lessons
+
+Mind
+
+- Write down 3 worries and surrender them to the Lord
+- Spend 10 minutes away from your phone
+- Write 3 things you are grateful for
+
+Body
+
+- Take a 10-minute walk
+- Stretch for 5 minutes
+- Organize a small space around you
+
+Health
+
+- Drink enough water today
+- Sleep earlier than usual
+- Choose a cleaner meal today
+
+People
+
+- Try to bear fruit today
+- Do one act of kindness without expecting anything in return
+- Apologize or forgive someone
+
+---
+
+Behavior / Logic Requirements
+
+1. A participant should not be able to edit their own challenge text.
+2. A participant should not access another participant’s card.
+3. Admin can edit everything.
+4. Revealing a box should update the database immediately.
+5. Completing a box should update the database immediately.
+6. Reflection should be stored and visible in admin panel.
+7. The app should be structured cleanly with templates, routes, models, and static files.
+
+---
+
+Project Structure Requirements
+
+Please structure the Flask app cleanly, for example with:
+
+- app factory or clean modular structure
+- templates folder
+- static folder
+- models file
+- auth routes
+- admin routes
+- participant routes
+
+Do not put everything in one giant file.
+
+---
+
+What I want you to generate now
+
+Please generate the first working version of the full app, including:
+
+1. Project folder structure
+2. Flask app setup
+3. Database models
+4. Authentication
+5. Admin dashboard
+6. Participant dashboard with hidden/reveal/complete bingo logic
+7. Daily reflection form
+8. Clean Bootstrap-based templates
+9. Seed sample data if helpful
+
+If anything is too large, build it in a clean step-by-step way but keep the project coherent and runnable.
+
+Start by generating the project structure and all core files for a working MVP.
