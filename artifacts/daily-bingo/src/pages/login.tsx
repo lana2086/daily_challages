@@ -34,6 +34,11 @@ export default function Login() {
     <div className="min-h-screen flex bg-background relative overflow-hidden">
       {/* Left: blended nature image panel (desktop only) */}
       <div className="hidden md:block w-1/2 relative overflow-hidden">
+        <img
+          src="/mountain-road.jpeg"
+          alt="Journey"
+          className="absolute inset-0 w-full h-full object-cover"
+        />
         <div className="absolute inset-0 bg-gradient-to-r from-transparent to-background" />
         <div className="absolute bottom-12 left-10 right-16 z-10">
           <p className="font-serif text-2xl font-bold text-white/90 leading-snug hero-text-shadow">
