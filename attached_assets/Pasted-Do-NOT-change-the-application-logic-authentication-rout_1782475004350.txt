@@ -1,0 +1,393 @@
+Do NOT change the application logic, authentication, routing, database, API, user roles, admin functionality, daily unlock logic, or any existing features.
+
+This request is 100% about visual design and UI/UX only.
+
+I want to transform this application into a beautiful, premium, modern web application while keeping every existing feature exactly as it is.
+
+---
+
+Design Style
+
+Create a design inspired by the elegance and simplicity of:
+
+- Apple
+- Notion
+- Headspace
+- Calm
+
+The application should feel:
+
+- Modern
+- Elegant
+- Warm
+- Peaceful
+- Inspiring
+- Premium
+- Minimal
+- Clean
+- Mobile-first
+
+Avoid anything that looks:
+
+- childish
+- corporate
+- outdated
+- gaming style
+- cyber style
+- overly colorful
+
+The app should feel like a professional wellness and personal growth platform.
+
+---
+
+Color Palette
+
+Use a soft premium palette.
+
+Background:
+
+- Off White (#FAFAFC)
+
+Primary:
+
+- Soft Purple (#7C6CF2)
+
+Secondary:
+
+- Sky Blue (#5FA8FF)
+
+Accent Colors:
+Spirit → Purple
+Mind → Blue
+Body → Green
+Health → Orange
+People → Pink
+
+Use colors gently.
+
+The interface should remain calm and comfortable.
+
+---
+
+Typography
+
+Use modern typography.
+
+Preferred fonts:
+
+- Inter
+- Poppins
+
+Create a strong visual hierarchy.
+
+Large elegant headings.
+
+Readable body text.
+
+Comfortable spacing.
+
+---
+
+Layout
+
+Increase white space.
+
+Use breathing room.
+
+Improve alignment.
+
+Improve section spacing.
+
+Make every screen feel clean and organized.
+
+---
+
+Cards
+
+Every card should have:
+
+- rounded corners (16-20px)
+- soft shadows
+- subtle borders
+- beautiful padding
+- premium appearance
+
+Cards should appear to float slightly above the background.
+
+---
+
+Hero Section
+
+Completely redesign the participant dashboard hero.
+
+Instead of a plain dashboard, create a welcoming experience.
+
+Include:
+
+Welcome message
+
+Today's Challenge
+
+Progress indicator
+
+Beautiful spacing
+
+Soft illustration or abstract background shapes if appropriate.
+
+Make the first screen feel inspiring.
+
+---
+
+Bingo Board
+
+Transform the bingo board into a beautiful modern component.
+
+Each square should look like a premium challenge card.
+
+Locked boxes:
+
+- muted
+- subtle
+- lock icon
+
+Today's challenge:
+
+- highlighted
+- elegant glow
+- premium border
+
+Completed boxes:
+
+- beautiful success state
+- check icon
+- subtle animation
+
+Keep the existing functionality exactly the same.
+
+Only improve the visual appearance.
+
+---
+
+Reflection Section
+
+Redesign the reflection area.
+
+Make it feel like a journal.
+
+Beautiful card.
+
+Large text areas.
+
+Elegant labels.
+
+Friendly save button.
+
+Comfortable spacing.
+
+Do NOT change reflection logic.
+
+---
+
+Buttons
+
+Modern rounded buttons.
+
+Soft hover effects.
+
+Subtle transitions.
+
+Premium colors.
+
+No flashy animations.
+
+---
+
+Forms
+
+Improve all input fields.
+
+Rounded.
+
+Clean.
+
+Better focus state.
+
+Better labels.
+
+More spacing.
+
+---
+
+Icons
+
+Use clean outline icons throughout the app.
+
+Examples:
+
+Spirit
+
+Mind
+
+Body
+
+Health
+
+People
+
+Dashboard
+
+Reflection
+
+Users
+
+Cards
+
+Settings
+
+Progress
+
+Keep icon style consistent.
+
+---
+
+Admin Panel
+
+Do NOT change functionality.
+
+Only redesign visually.
+
+Improve:
+
+Dashboard cards
+
+Users page
+
+Bingo editor
+
+Reflection list
+
+Statistics cards
+
+Tables
+
+Spacing
+
+Typography
+
+Colors
+
+Everything should feel consistent with the participant side.
+
+---
+
+Navigation
+
+Improve sidebar.
+
+Better spacing.
+
+Modern icons.
+
+Active page indicator.
+
+Elegant hover effect.
+
+---
+
+Mobile Experience
+
+The application must look excellent on phones.
+
+Responsive layout.
+
+Touch-friendly spacing.
+
+Large tap targets.
+
+---
+
+Micro Interactions
+
+Add lightweight polish only.
+
+Examples:
+
+Soft hover animations.
+
+Smooth card transitions.
+
+Button press feedback.
+
+Fade transitions.
+
+Nothing heavy.
+
+Performance must remain excellent.
+
+---
+
+Empty States
+
+Design beautiful empty states.
+
+Instead of blank areas, show elegant illustrations or icons with helpful text.
+
+---
+
+Success Messages
+
+Improve notifications.
+
+Example:
+
+✅ Great job!
+
+Your reflection has been saved successfully.
+
+See you tomorrow for your next challenge.
+
+---
+
+Visual Consistency
+
+Every page should feel like it belongs to the same product.
+
+Consistent:
+
+Spacing
+
+Corners
+
+Typography
+
+Colors
+
+Buttons
+
+Cards
+
+Icons
+
+Animations
+
+---
+
+Final Goal
+
+When a user opens this application, it should immediately feel like a polished premium product created by a professional UI/UX designer.
+
+The experience should be welcoming, peaceful, modern, and motivating.
+
+Do NOT add new features.
+
+Do NOT remove existing features.
+
+Do NOT change application logic.
+
+Only elevate the visual quality to a professional level.
+
+After finishing, provide a summary of:
+
+- visual improvements made
+- components redesigned
+- files modified

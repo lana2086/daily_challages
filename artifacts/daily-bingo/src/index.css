@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,100..900;1,9..144,100..900&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Inter:ital,wght@0,400;0,500;0,600;1,400&display=swap');
 @import "tailwindcss";
 @import "tw-animate-css";
 @plugin "@tailwindcss/typography";
@@ -57,9 +57,9 @@
   --color-sidebar-accent-border: var(--sidebar-accent-border);
   --color-sidebar-ring: hsl(var(--sidebar-ring));
 
-  --font-sans: 'DM Sans', var(--app-font-sans);
-  --font-serif: 'Fraunces', var(--app-font-serif);
-  --font-mono: var(--app-font-mono);
+  --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --font-serif: 'Poppins', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: ui-monospace, monospace;
 
   --text-xs: 0.75rem;
   --text-xs--line-height: calc(1 / 0.75);
@@ -77,8 +77,6 @@
   --text-3xl--line-height: calc(2.25 / 1.875);
   --text-4xl: 2.25rem;
   --text-4xl--line-height: calc(2.5 / 2.25);
-  --text-5xl: 3rem;
-  --text-5xl--line-height: 1;
 
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
@@ -87,94 +85,112 @@
 }
 
 :root {
-  --background: 40 33% 96%;
-  --foreground: 24 20% 15%;
-  --border: 36 30% 87%;
+  /* Backgrounds */
+  --background: 248 33% 98%;
+  --foreground: 240 20% 10%;
+  --border: 248 20% 89%;
+
+  /* Cards */
   --card: 0 0% 100%;
-  --card-foreground: 24 20% 15%;
-  --card-border: 36 30% 87%;
-  --sidebar: 40 33% 96%;
-  --sidebar-foreground: 24 20% 15%;
-  --sidebar-border: 36 30% 87%;
-  --sidebar-primary: 6 49% 37%;
-  --sidebar-primary-foreground: 0 0% 100%;
-  --sidebar-accent: 33 33% 83%;
-  --sidebar-accent-foreground: 24 20% 15%;
-  --sidebar-ring: 6 49% 37%;
+  --card-foreground: 240 20% 10%;
+  --card-border: 248 20% 90%;
+
+  /* Popovers */
   --popover: 0 0% 100%;
-  --popover-foreground: 24 20% 15%;
-  --popover-border: 36 30% 87%;
-  --primary: 6 49% 37%;
+  --popover-foreground: 240 20% 10%;
+  --popover-border: 248 20% 90%;
+
+  /* Primary → Soft Purple */
+  --primary: 247 73% 62%;
   --primary-foreground: 0 0% 100%;
-  --secondary: 33 33% 83%;
-  --secondary-foreground: 24 20% 15%;
-  --muted: 35 34% 91%;
-  --muted-foreground: 24 9% 42%;
-  --accent: 33 33% 83%;
-  --accent-foreground: 24 20% 15%;
+
+  /* Secondary → Light lavender */
+  --secondary: 247 50% 94%;
+  --secondary-foreground: 247 60% 35%;
+
+  /* Muted */
+  --muted: 248 25% 95%;
+  --muted-foreground: 240 12% 48%;
+
+  /* Accent */
+  --accent: 247 50% 94%;
+  --accent-foreground: 247 60% 35%;
+
+  /* Destructive */
   --destructive: 0 84% 60%;
   --destructive-foreground: 0 0% 100%;
-  --input: 36 30% 87%;
-  --ring: 6 49% 37%;
-  --chart-1: 6 49% 37%;
-  --chart-2: 33 33% 83%;
-  --chart-3: 36 30% 87%;
-  --chart-4: 24 20% 15%;
-  --chart-5: 0 0% 100%;
 
-  --app-font-sans: 'Inter', sans-serif;
-  --app-font-serif: Georgia, serif;
-  --app-font-mono: Menlo, monospace;
-  --radius: 0.75rem;
+  /* Form inputs */
+  --input: 248 20% 90%;
+  --ring: 247 73% 62%;
+
+  /* Sidebar → white */
+  --sidebar: 0 0% 100%;
+  --sidebar-foreground: 240 20% 20%;
+  --sidebar-border: 248 20% 91%;
+  --sidebar-primary: 247 73% 62%;
+  --sidebar-primary-foreground: 0 0% 100%;
+  --sidebar-accent: 247 50% 94%;
+  --sidebar-accent-foreground: 247 60% 30%;
+  --sidebar-ring: 247 73% 62%;
+
+  /* Charts */
+  --chart-1: 247 73% 62%;
+  --chart-2: 213 94% 68%;
+  --chart-3: 142 71% 45%;
+  --chart-4: 27 96% 61%;
+  --chart-5: 326 100% 74%;
+
+  --radius: 0.875rem;
 
   --opaque-button-border-intensity: -8;
-  --button-outline: rgba(0,0,0, .10);
-  --badge-outline: rgba(0,0,0, .05);
-  --elevate-1: rgba(0,0,0, .03);
-  --elevate-2: rgba(0,0,0, .08);
+  --button-outline: rgba(0,0,0,.08);
+  --badge-outline: rgba(0,0,0,.04);
+  --elevate-1: rgba(0,0,0,.02);
+  --elevate-2: rgba(0,0,0,.06);
 }
 
 .dark {
-  --background: 24 20% 15%;
-  --foreground: 40 33% 96%;
-  --border: 24 15% 25%;
-  --card: 24 18% 18%;
-  --card-foreground: 40 33% 96%;
-  --card-border: 24 15% 25%;
-  --sidebar: 24 20% 15%;
-  --sidebar-foreground: 40 33% 96%;
-  --sidebar-border: 24 15% 25%;
-  --sidebar-primary: 6 49% 45%;
+  --background: 240 20% 10%;
+  --foreground: 248 30% 95%;
+  --border: 240 15% 20%;
+  --card: 240 18% 13%;
+  --card-foreground: 248 30% 95%;
+  --card-border: 240 15% 20%;
+  --sidebar: 240 20% 10%;
+  --sidebar-foreground: 248 30% 90%;
+  --sidebar-border: 240 15% 20%;
+  --sidebar-primary: 247 73% 65%;
   --sidebar-primary-foreground: 0 0% 100%;
-  --sidebar-accent: 24 15% 25%;
-  --sidebar-accent-foreground: 40 33% 96%;
-  --sidebar-ring: 6 49% 45%;
-  --popover: 24 18% 18%;
-  --popover-foreground: 40 33% 96%;
-  --popover-border: 24 15% 25%;
-  --primary: 6 49% 45%;
+  --sidebar-accent: 247 30% 20%;
+  --sidebar-accent-foreground: 248 30% 90%;
+  --sidebar-ring: 247 73% 65%;
+  --popover: 240 18% 13%;
+  --popover-foreground: 248 30% 95%;
+  --popover-border: 240 15% 20%;
+  --primary: 247 73% 65%;
   --primary-foreground: 0 0% 100%;
-  --secondary: 24 15% 25%;
-  --secondary-foreground: 40 33% 96%;
-  --muted: 24 15% 20%;
-  --muted-foreground: 36 15% 70%;
-  --accent: 24 15% 25%;
-  --accent-foreground: 40 33% 96%;
+  --secondary: 247 30% 20%;
+  --secondary-foreground: 248 30% 90%;
+  --muted: 240 15% 16%;
+  --muted-foreground: 240 10% 60%;
+  --accent: 247 30% 20%;
+  --accent-foreground: 248 30% 90%;
   --destructive: 0 84% 60%;
   --destructive-foreground: 0 0% 100%;
-  --input: 24 15% 25%;
-  --ring: 6 49% 45%;
-  --chart-1: 6 49% 45%;
-  --chart-2: 24 15% 25%;
-  --chart-3: 36 15% 70%;
-  --chart-4: 40 33% 96%;
-  --chart-5: 24 18% 18%;
+  --input: 240 15% 20%;
+  --ring: 247 73% 65%;
+  --chart-1: 247 73% 65%;
+  --chart-2: 213 94% 68%;
+  --chart-3: 142 71% 45%;
+  --chart-4: 27 96% 61%;
+  --chart-5: 326 100% 74%;
 
   --opaque-button-border-intensity: 9;
-  --button-outline: rgba(255,255,255, .10);
-  --badge-outline: rgba(255,255,255, .05);
-  --elevate-1: rgba(255,255,255, .04);
-  --elevate-2: rgba(255,255,255, .09);
+  --button-outline: rgba(255,255,255,.10);
+  --badge-outline: rgba(255,255,255,.05);
+  --elevate-1: rgba(255,255,255,.04);
+  --elevate-2: rgba(255,255,255,.09);
 }
 
 @layer base {
@@ -189,4 +205,20 @@
   h1, h2, h3, h4, h5, h6 {
     @apply font-serif;
   }
+}
+
+/* Premium card shadow utility */
+.card-premium {
+  box-shadow: 0 1px 3px rgba(124, 108, 242, 0.06), 0 4px 16px rgba(124, 108, 242, 0.08);
+}
+
+.card-premium-hover:hover {
+  box-shadow: 0 4px 12px rgba(124, 108, 242, 0.10), 0 8px 32px rgba(124, 108, 242, 0.12);
+  transform: translateY(-1px);
+  transition: all 0.2s ease;
+}
+
+/* Glow effect for active bingo tile */
+.tile-glow {
+  box-shadow: 0 0 0 2px hsl(247 73% 62% / 0.3), 0 4px 24px hsl(247 73% 62% / 0.18);
 }
