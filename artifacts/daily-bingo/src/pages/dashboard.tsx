@@ -1,4 +1,5 @@
 import { ParticipantLayout } from "@/components/layout";
+import Passport from "@/components/passport.tsx";
 import {
   useListBingoCards,
   useGetBingoCard,
@@ -217,6 +218,16 @@ export default function Dashboard() {
             transition={{ duration: 0.35, delay: 0.18 }}
           >
             <ReflectionForm challengeText={todayChallenge} />
+          </motion.section>
+        )}
+        {/* ── Journey Passport ───────────────────── */}
+        {!isLoading && hasCard && (
+          <motion.section
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.35, delay: 0.25 }}
+          >
+            <Passport />
           </motion.section>
         )}
       </div>
