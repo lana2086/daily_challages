@@ -1,0 +1,92 @@
+Build a completely new Passport feature from scratch.
+
+Do NOT restore old code.
+Do NOT reuse previous Passport implementation.
+Create a clean, production-ready component.
+
+The Passport must follow exactly the same design language used throughout the application.
+
+Design System:
+
+• Premium modern UI.
+• Soft luxury appearance.
+• Warm beige backgrounds.
+• White cards.
+• Rounded corners (18–24px).
+• Soft shadows.
+• Elegant spacing.
+• Serif headings identical to the Dashboard.
+• Matching typography.
+• Smooth animations.
+• Mobile-first responsive design.
+• Consistent with the Hero Card, Bingo Board, and Daily Reflection.
+• The Passport should feel like part of the application, not an external component.
+
+Passport Cover:
+
+• Dark royal purple leather.
+• Realistic leather texture.
+• Gold decorative border.
+• Gold Christian cross centered.
+• Arabic title:
+  جواز العبور
+• Subtitle:
+  الدخول إلى جبل صهيون
+• Premium embossed effect.
+• Elegant shadow.
+• Centered premium gold Open Passport button.
+
+When the user clicks Open Passport:
+
+• Open a realistic passport/book using react-pageflip.
+• Smooth page-turn animation.
+• Natural shadows.
+• Premium book appearance.
+
+Initially create ONLY TWO pages.
+
+Each page must contain:
+
+• اسم المهمة
+• الجولة 1 ____________
+• الجولة 2 ____________
+• Large reflection textarea.
+• Section title:
+  الاقتلاع
+• Second large textarea for writing.
+
+The last page contains a premium Close Passport button.
+
+Technical requirements:
+
+• All Passport styles must be inside index.css.
+• Every Passport class must begin with passport-.
+• No inline styling unless absolutely necessary.
+• Fully responsive.
+• Clean TypeScript.
+• No TypeScript errors.
+• No React warnings.
+
+Do NOT modify:
+
+• Hero section.
+• Bingo Board.
+• Daily Reflection.
+• Navigation.
+• Dashboard layout.
+• Admin pages.
+• API.
+• Database.
+• Routing.
+
+The Passport must be completely isolated from the rest of the application.
+
+Before finishing, verify:
+
+✓ Passport cover displays correctly.
+✓ Open Passport works.
+✓ Page flip works.
+✓ Both textareas accept typing.
+✓ Close Passport works.
+✓ No layout shifts anywhere.
+✓ The application's premium design remains consistent.

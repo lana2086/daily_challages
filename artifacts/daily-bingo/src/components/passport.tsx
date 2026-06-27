@@ -1,65 +1,66 @@
 import { useState, forwardRef } from "react";
 import HTMLFlipBook from "react-pageflip";
+import { motion } from "framer-motion";
 
-const COVER_W = 320;
-const COVER_H = 450;
+const PAGE_W = 320;
+const PAGE_H = 460;
 
-const PassportPage = forwardRef<
-  HTMLDivElement,
-  { children?: React.ReactNode }
->(({ children }, ref) => (
-  <div ref={ref} className="pp-page">
-    {children}
-  </div>
-));
-PassportPage.displayName = "PassportPage";
+const PassportLeaf = forwardRef<HTMLDivElement, { children?: React.ReactNode }>(
+  ({ children }, ref) => (
+    <div className="passport-leaf" ref={ref}>
+      <div className="passport-leaf-inner">{children}</div>
+    </div>
+  ),
+);
+PassportLeaf.displayName = "PassportLeaf";
 
-function PageContent({
-  pageNum,
-  onClose,
-}: {
-  pageNum: number;
-  onClose?: () => void;
-}) {
+function PassportPageBody({ onClose }: { onClose?: () => void }) {
   return (
-    <div className="pp-page-inner">
-      <div className="pp-page-header">
-        <span className="pp-page-num">{pageNum}</span>
-        <div className="pp-cross-small">✝</div>
+    <div className="passport-page-body">
+      <div className="passport-page-head">
+        <span className="passport-cross-mark">✝</span>
       </div>
 
-      <div className="pp-field">
-        <label className="pp-label">اسم التحدي</label>
-        <div className="pp-underline-input" />
+      <div className="passport-field">
+        <label className="passport-field-label">اسم المهمة</label>
+        <div className="passport-write-line" />
       </div>
 
-      <div className="pp-row">
-        <div className="pp-field pp-field-half">
-          <label className="pp-label">الجولة ١</label>
-          <div className="pp-underline-input" />
+      <div className="passport-rounds">
+        <div className="passport-field">
+          <label className="passport-field-label">الجولة 1</label>
+          <div className="passport-write-line" />
         </div>
-        <div className="pp-field pp-field-half">
-          <label className="pp-label">الجولة ٢</label>
-          <div className="pp-underline-input" />
+        <div className="passport-field">
+          <label className="passport-field-label">الجولة 2</label>
+          <div className="passport-write-line" />
         </div>
       </div>
 
-      <div className="pp-field pp-field-grow">
-        <label className="pp-label">تأمل</label>
-        <textarea className="pp-textarea" placeholder="اكتب هنا…" />
+      <div className="passport-field passport-field-grow">
+        <textarea
+          className="passport-textarea"
+          placeholder="اكتب تأملاتك هنا…"
+          aria-label="تأمل"
+        />
       </div>
 
-      <div className="pp-field pp-field-grow">
-        <label className="pp-label">اقتلاع</label>
-        <textarea className="pp-textarea" placeholder="اكتب هنا…" />
+      <div className="passport-section-divider">
+        <span>الاقتلاع</span>
+      </div>
+
+      <div className="passport-field passport-field-grow">
+        <textarea
+          className="passport-textarea"
+          placeholder="اكتب هنا…"
+          aria-label="الاقتلاع"
+        />
       </div>
 
       {onClose && (
-        <div className="pp-close-row">
-          <button onClick={onClose} className="pp-close-btn">
-            إغلاق الجواز
-          </button>
-        </div>
+        <button className="passport-close-btn" onClick={onClose}>
+          إغلاق الجواز
+        </button>
       )}
     </div>
   );
@@ -69,43 +70,57 @@ export default function Passport() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <section className="pp-section">
-      <h2 className="pp-section-title">📖 جواز العبور</h2>
+    <div className="passport-card">
+      <div className="passport-card-strip" />
 
-      <div className="pp-center">
+      <div className="passport-card-head">
+        <div className="passport-card-icon">📖</div>
+        <div>
+          <h2 className="passport-card-title">جواز العبور</h2>
+          <p className="passport-card-subtitle">Your journey passport</p>
+        </div>
+      </div>
+
+      <div className="passport-stage">
         {!isOpen ? (
-          <div
-            className="pp-cover"
-            style={{ width: COVER_W, height: COVER_H }}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.96 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.4, ease: "easeOut" }}
+            className="passport-cover"
           >
-            <div className="pp-cover-frame" />
-            <div className="pp-cover-body">
-              <p className="pp-cover-sub">مملكة الله</p>
-              <div className="pp-cover-cross">✝</div>
-              <h2 className="pp-cover-title">جواز العبور</h2>
-              <p className="pp-cover-sub">الدخول إلى جبل صهيون</p>
+            <div className="passport-cover-frame" />
+            <div className="passport-cover-content">
+              <h3 className="passport-cover-title">جواز العبور</h3>
+              <div className="passport-cover-cross">✝</div>
+              <p className="passport-cover-subtitle">الدخول إلى جبل صهيون</p>
               <button
-                className="pp-open-btn"
+                className="passport-open-btn"
                 onClick={() => setIsOpen(true)}
               >
-                افتح الجواز
+                Open Passport
               </button>
             </div>
-          </div>
+          </motion.div>
         ) : (
-          <div className="pp-book-wrapper">
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.4 }}
+            className="passport-book-wrap"
+          >
             <HTMLFlipBook
-              width={COVER_W}
-              height={COVER_H}
-              size="fixed"
-              minWidth={COVER_W}
-              maxWidth={COVER_W}
-              minHeight={COVER_H}
-              maxHeight={COVER_H}
-              maxShadowOpacity={0.4}
+              width={PAGE_W}
+              height={PAGE_H}
+              size="stretch"
+              minWidth={270}
+              maxWidth={PAGE_W}
+              minHeight={390}
+              maxHeight={PAGE_H}
+              maxShadowOpacity={0.5}
               showCover={false}
               mobileScrollSupport={true}
-              className="pp-flipbook"
+              className="passport-flipbook"
               style={{}}
               startPage={0}
               drawShadow={true}
@@ -119,27 +134,18 @@ export default function Passport() {
               showPageCorners={true}
               disableFlipByClick={false}
             >
-              <PassportPage>
-                <PageContent pageNum={1} />
-              </PassportPage>
-
-              <PassportPage>
-                <PageContent pageNum={2} />
-              </PassportPage>
-
-              <PassportPage>
-                <PageContent pageNum={3} />
-              </PassportPage>
-
-              <PassportPage>
-                <PageContent pageNum={4} onClose={() => setIsOpen(false)} />
-              </PassportPage>
+              <PassportLeaf>
+                <PassportPageBody />
+              </PassportLeaf>
+              <PassportLeaf>
+                <PassportPageBody onClose={() => setIsOpen(false)} />
+              </PassportLeaf>
             </HTMLFlipBook>
 
-            <p className="pp-flip-hint">← اسحب الصفحة للتقليب →</p>
-          </div>
+            <p className="passport-flip-hint">اسحب الصفحة للتقليب</p>
+          </motion.div>
         )}
       </div>
-    </section>
+    </div>
   );
 }
