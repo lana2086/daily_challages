@@ -29,7 +29,6 @@ export * from './participantUpdate';
 export * from './passport';
 export * from './passportInput';
 export * from './passportPage';
-export * from './passportPageDrawings';
 export * from './reflection';
 export * from './reflectionInput';
 export * from './reflectionUpdate';

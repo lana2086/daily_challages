@@ -7,7 +7,6 @@ export interface PassportPageData {
   round2: string;
   reflection: string;
   uprooting: string;
-  drawings: Record<string, unknown>;
 }
 
 export const passportsTable = pgTable("passports", {

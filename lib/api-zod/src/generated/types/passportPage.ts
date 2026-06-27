@@ -5,7 +5,6 @@
  * Daily Challenge Bingo API
  * OpenAPI spec version: 0.1.0
  */
-import type { PassportPageDrawings } from './passportPageDrawings';
 
 export interface PassportPage {
   missionName: string;
@@ -13,5 +12,4 @@ export interface PassportPage {
   round2: string;
   reflection: string;
   uprooting: string;
-  drawings: PassportPageDrawings;
 }

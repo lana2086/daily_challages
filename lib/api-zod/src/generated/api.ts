@@ -434,8 +434,7 @@ export const GetMyPassportResponse = zod.object({
   "round1": zod.string(),
   "round2": zod.string(),
   "reflection": zod.string(),
-  "uprooting": zod.string(),
-  "drawings": zod.record(zod.string(), zod.unknown())
+  "uprooting": zod.string()
 })),
   "updatedAt": zod.coerce.date()
 })
@@ -450,8 +449,7 @@ export const UpdateMyPassportBody = zod.object({
   "round1": zod.string(),
   "round2": zod.string(),
   "reflection": zod.string(),
-  "uprooting": zod.string(),
-  "drawings": zod.record(zod.string(), zod.unknown())
+  "uprooting": zod.string()
 }))
 })
 
@@ -463,8 +461,7 @@ export const UpdateMyPassportResponse = zod.object({
   "round1": zod.string(),
   "round2": zod.string(),
   "reflection": zod.string(),
-  "uprooting": zod.string(),
-  "drawings": zod.record(zod.string(), zod.unknown())
+  "uprooting": zod.string()
 })),
   "updatedAt": zod.coerce.date()
 })
@@ -485,8 +482,7 @@ export const GetParticipantPassportResponse = zod.object({
   "round1": zod.string(),
   "round2": zod.string(),
   "reflection": zod.string(),
-  "uprooting": zod.string(),
-  "drawings": zod.record(zod.string(), zod.unknown())
+  "uprooting": zod.string()
 })),
   "updatedAt": zod.coerce.date()
 })

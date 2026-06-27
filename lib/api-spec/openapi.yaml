@@ -811,7 +811,7 @@ components:
 
     PassportPage:
       type: object
-      required: [missionName, round1, round2, reflection, uprooting, drawings]
+      required: [missionName, round1, round2, reflection, uprooting]
       properties:
         missionName:
           type: string
@@ -823,9 +823,6 @@ components:
           type: string
         uprooting:
           type: string
-        drawings:
-          type: object
-          additionalProperties: true
 
     PassportInput:
       type: object

@@ -36,7 +36,6 @@ function emptyPage(): PassportPageData {
     round2: "",
     reflection: "",
     uprooting: "",
-    drawings: {},
   };
 }
 

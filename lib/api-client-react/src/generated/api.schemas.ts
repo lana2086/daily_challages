@@ -196,15 +196,12 @@ export interface ReflectionUpdate {
   impact?: string;
 }
 
-export type PassportPageDrawings = { [key: string]: unknown };
-
 export interface PassportPage {
   missionName: string;
   round1: string;
   round2: string;
   reflection: string;
   uprooting: string;
-  drawings: PassportPageDrawings;
 }
 
 export interface Passport {
