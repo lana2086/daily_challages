@@ -1,5 +1,17 @@
-import { useState } from "react";
+import { useState, forwardRef } from "react";
 import HTMLFlipBook from "react-pageflip";
+
+const PassportPage = forwardRef<
+  HTMLDivElement,
+  { children?: React.ReactNode; className?: string }
+>(({ children, className = "" }, ref) => {
+  return (
+    <div ref={ref} className={`passport-page ${className}`}>
+      {children}
+    </div>
+  );
+});
+PassportPage.displayName = "PassportPage";
 
 export default function Passport() {
   const [isOpen, setIsOpen] = useState(false);
@@ -52,7 +64,7 @@ export default function Passport() {
             disableFlipByClick={false}
           >
             {/* الصفحة الأولى */}
-            <div className="passport-page">
+            <PassportPage>
               <h1>اسم المهمة</h1>
 
               <p>الجولة 1 ____________ الجولة 2 ____________</p>
@@ -68,10 +80,10 @@ export default function Passport() {
                   rows={5}
                 />
               </div>
-            </div>
+            </PassportPage>
 
             {/* الصفحة الثانية */}
-            <div className="passport-page">
+            <PassportPage>
               <h1>اسم المهمة</h1>
 
               <p>الجولة 1 ____________ الجولة 2 ____________</p>
@@ -94,7 +106,7 @@ export default function Passport() {
               >
                 Close Passport
               </button>
-            </div>
+            </PassportPage>
           </HTMLFlipBook>
         )}
       </div>

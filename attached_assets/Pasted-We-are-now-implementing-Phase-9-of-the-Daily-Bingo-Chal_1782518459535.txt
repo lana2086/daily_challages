@@ -1,0 +1,107 @@
+We are now implementing Phase 9 of the Daily Bingo Challenge project.
+
+Goal:
+Create a complete Passport Management System connected to the existing database and Admin Dashboard.
+
+Requirements:
+
+1. Database
+- Create a new passport_entries table.
+- Fields:
+  - id
+  - userId
+  - pageNumber
+  - challengeTitle
+  - round1
+  - round2
+  - reflection
+  - uprooting
+  - createdAt
+  - updatedAt
+
+2. Backend API
+Create full CRUD endpoints:
+
+GET /passport
+Return all passport pages for the logged in participant.
+
+POST /passport
+Create or update a passport page.
+
+GET /passport/:userId
+(Admin only)
+Return the complete passport of a participant.
+
+PATCH /passport/:id
+Update passport page.
+
+3. Participant Passport
+
+The Passport component must:
+
+- Automatically load saved data.
+- Auto-save while typing (debounced).
+- Keep all entered text after refresh.
+- Support multiple pages (future expansion).
+- Current implementation should support at least 4 pages.
+- Each page contains:
+  • Challenge Name
+  • Round 1
+  • Round 2
+  • Reflection textarea
+  • Uprooting textarea
+
+4. Admin Dashboard
+
+Create a new Passport section.
+
+Admin can:
+
+- View every participant.
+- Open participant passport.
+- Read every page.
+- Read Reflection.
+- Read Uprooting.
+- View creation dates.
+
+Admin must NOT edit participant answers.
+
+5. UI
+
+Passport must look like a real passport.
+
+Keep existing HTMLFlipBook animation.
+
+Improve layout:
+
+- Proper page spacing
+- Borders
+- Writing areas
+- Arabic RTL support
+- Responsive on mobile
+
+6. Security
+
+Participants only access their own passport.
+
+Admins can access all passports.
+
+Validate every request.
+
+7. Code Quality
+
+Follow existing project architecture.
+
+Reuse existing API client generation.
+
+Reuse React Query.
+
+Reuse authentication middleware.
+
+No duplicate code.
+
+Production-ready implementation only.
+
+Do not break existing Reflection functionality.
+Do not remove existing Dashboard features.
+Implement the Passport system as a new feature integrated with the current application.
