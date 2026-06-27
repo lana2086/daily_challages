@@ -1,9 +1,125 @@
-import { useState, forwardRef } from "react";
+import { useState, useRef, forwardRef } from "react";
 import HTMLFlipBook from "react-pageflip";
 import { motion } from "framer-motion";
+import {
+  ReactSketchCanvas,
+  type ReactSketchCanvasRef,
+} from "react-sketch-canvas";
 
 const PAGE_W = 320;
 const PAGE_H = 460;
+
+function WritingArea({ ariaLabel }: { ariaLabel: string }) {
+  const taRef = useRef<HTMLTextAreaElement>(null);
+  const canvasRef = useRef<ReactSketchCanvasRef>(null);
+  const [text, setText] = useState("");
+  const [showCanvas, setShowCanvas] = useState(false);
+  const [erasing, setErasing] = useState(false);
+
+  const handleInput = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setText(e.target.value);
+    const el = taRef.current;
+    if (el) {
+      el.style.height = "auto";
+      el.style.height = `${el.scrollHeight}px`;
+    }
+  };
+
+  const usePen = () => {
+    setErasing(false);
+    canvasRef.current?.eraseMode(false);
+  };
+  const useEraser = () => {
+    setErasing(true);
+    canvasRef.current?.eraseMode(true);
+  };
+
+  return (
+    <div className="passport-write-block">
+      <textarea
+        ref={taRef}
+        className="passport-textarea"
+        value={text}
+        onChange={handleInput}
+        rows={2}
+        aria-label={ariaLabel}
+      />
+
+      {!showCanvas ? (
+        <button
+          type="button"
+          className="passport-hand-btn"
+          onClick={() => setShowCanvas(true)}
+        >
+          ✍ Write by Hand
+        </button>
+      ) : (
+        <div className="passport-canvas-block">
+          <div className="passport-toolbar" role="toolbar" aria-label={`${ariaLabel} tools`}>
+            <button
+              type="button"
+              className={`passport-tool${!erasing ? " is-active" : ""}`}
+              onClick={usePen}
+              aria-label="Pen"
+              title="Pen"
+            >
+              ✏
+            </button>
+            <button
+              type="button"
+              className={`passport-tool${erasing ? " is-active" : ""}`}
+              onClick={useEraser}
+              aria-label="Eraser"
+              title="Eraser"
+            >
+              🧽
+            </button>
+            <button
+              type="button"
+              className="passport-tool"
+              onClick={() => canvasRef.current?.undo()}
+              aria-label="Undo"
+              title="Undo"
+            >
+              ↶
+            </button>
+            <button
+              type="button"
+              className="passport-tool"
+              onClick={() => canvasRef.current?.redo()}
+              aria-label="Redo"
+              title="Redo"
+            >
+              ↷
+            </button>
+            <button
+              type="button"
+              className="passport-tool"
+              onClick={() => canvasRef.current?.clearCanvas()}
+              aria-label="Clear"
+              title="Clear"
+            >
+              🗑
+            </button>
+          </div>
+
+          <ReactSketchCanvas
+            ref={canvasRef}
+            className="passport-canvas"
+            width="100%"
+            height="120px"
+            strokeWidth={2}
+            eraserWidth={14}
+            strokeColor="#2f220c"
+            canvasColor="#ffffff"
+            style={{ border: "1px solid #d8c9a6", borderRadius: "8px" }}
+            withTimestamp={false}
+          />
+        </div>
+      )}
+    </div>
+  );
+}
 
 const PassportLeaf = forwardRef<HTMLDivElement, { children?: React.ReactNode }>(
   ({ children }, ref) => (
@@ -37,25 +153,13 @@ function PassportPageBody({ onClose }: { onClose?: () => void }) {
         </div>
       </div>
 
-      <div className="passport-field passport-field-grow">
-        <textarea
-          className="passport-textarea"
-          placeholder="اكتب تأملاتك هنا…"
-          aria-label="تأمل"
-        />
-      </div>
+      <WritingArea ariaLabel="تأمل" />
 
       <div className="passport-section-divider">
         <span>الاقتلاع</span>
       </div>
 
-      <div className="passport-field passport-field-grow">
-        <textarea
-          className="passport-textarea"
-          placeholder="اكتب هنا…"
-          aria-label="الاقتلاع"
-        />
-      </div>
+      <WritingArea ariaLabel="الاقتلاع" />
 
       {onClose && (
         <button className="passport-close-btn" onClick={onClose}>
