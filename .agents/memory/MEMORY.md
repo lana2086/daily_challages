@@ -2,3 +2,4 @@
 - [drizzle-kit push blocked](db-push-env.md) — drizzle-kit push hangs on a TTY prompt in this env; apply DB schema changes with psql/executeSql directly.
 - [admin read-only freshness](readonly-freshness.md) — read-only/admin views of user-editable data must re-hydrate when server updatedAt changes; one-time init locks in stale data.
 - [dashboard gating](daily-bingo-dashboard-gating.md) — participant dashboard hides Passport & Reflection until the user has a bingo card with boxes; seed a card before testing them.
+- [react-pageflip eats input events](react-pageflip-inputs.md) — inputs inside HTMLFlipBook pages can't be typed into; stopPropagation on mouse/touch/pointer down of editable fields.

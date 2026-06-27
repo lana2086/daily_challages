@@ -70,6 +70,15 @@ function PassportField({
     }
   }, [value, variant]);
 
+  // react-pageflip captures mouse/touch/pointer events on each page to drive the
+  // flip gesture, which steals focus from the inputs and prevents typing. When
+  // the field is editable, stop those events from reaching the flipbook so the
+  // input can be focused and typed into normally. (Left enabled in read-only
+  // mode so participants can still swipe to flip pages from anywhere.)
+  const stop = readOnly
+    ? undefined
+    : (e: React.SyntheticEvent) => e.stopPropagation();
+
   if (variant === "input") {
     return (
       <input
@@ -79,6 +88,9 @@ function PassportField({
         readOnly={readOnly}
         aria-label={ariaLabel}
         dir="rtl"
+        onMouseDown={stop}
+        onTouchStart={stop}
+        onPointerDown={stop}
       />
     );
   }
@@ -93,6 +105,9 @@ function PassportField({
       rows={3}
       aria-label={ariaLabel}
       dir="rtl"
+      onMouseDown={stop}
+      onTouchStart={stop}
+      onPointerDown={stop}
     />
   );
 }
@@ -171,17 +186,6 @@ function PassportPageBody({
           ariaLabel="الاقتلاع"
           value={page.uprooting}
           onChange={(v) => onField("uprooting", v)}
-          readOnly={readOnly}
-        />
-      </div>
-
-      <div className="passport-field">
-        <label className="passport-field-label">البناء</label>
-        <PassportField
-          variant="textarea"
-          ariaLabel="البناء"
-          value={page.building}
-          onChange={(v) => onField("building", v)}
           readOnly={readOnly}
         />
       </div>

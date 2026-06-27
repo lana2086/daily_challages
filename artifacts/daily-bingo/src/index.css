@@ -518,7 +518,7 @@
 }
 
 .passport-textarea {
-  min-height: 54px;
+  min-height: 130px;
   resize: none;
   overflow: hidden;
   padding: 0.4rem 0.55rem;
