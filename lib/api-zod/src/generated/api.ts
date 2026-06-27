@@ -424,7 +424,7 @@ export const UpdateReflectionResponse = zod.object({
 
 
 /**
- * @summary Get the current participant's passport
+ * @summary Get the current participant's passport (read-only for the participant)
  */
 export const GetMyPassportResponse = zod.object({
   "userId": zod.number(),
@@ -433,35 +433,8 @@ export const GetMyPassportResponse = zod.object({
   "missionName": zod.string(),
   "round1": zod.string(),
   "round2": zod.string(),
-  "reflection": zod.string(),
-  "uprooting": zod.string()
-})),
-  "updatedAt": zod.coerce.date()
-})
-
-
-/**
- * @summary Create or update the current participant's passport
- */
-export const UpdateMyPassportBody = zod.object({
-  "pages": zod.array(zod.object({
-  "missionName": zod.string(),
-  "round1": zod.string(),
-  "round2": zod.string(),
-  "reflection": zod.string(),
-  "uprooting": zod.string()
-}))
-})
-
-export const UpdateMyPassportResponse = zod.object({
-  "userId": zod.number(),
-  "participantName": zod.string().optional(),
-  "pages": zod.array(zod.object({
-  "missionName": zod.string(),
-  "round1": zod.string(),
-  "round2": zod.string(),
-  "reflection": zod.string(),
-  "uprooting": zod.string()
+  "uprooting": zod.string(),
+  "building": zod.string()
 })),
   "updatedAt": zod.coerce.date()
 })
@@ -481,8 +454,39 @@ export const GetParticipantPassportResponse = zod.object({
   "missionName": zod.string(),
   "round1": zod.string(),
   "round2": zod.string(),
-  "reflection": zod.string(),
-  "uprooting": zod.string()
+  "uprooting": zod.string(),
+  "building": zod.string()
+})),
+  "updatedAt": zod.coerce.date()
+})
+
+
+/**
+ * @summary Create or update a participant's passport (admin only)
+ */
+export const UpdateParticipantPassportParams = zod.object({
+  "id": zod.coerce.number()
+})
+
+export const UpdateParticipantPassportBody = zod.object({
+  "pages": zod.array(zod.object({
+  "missionName": zod.string(),
+  "round1": zod.string(),
+  "round2": zod.string(),
+  "uprooting": zod.string(),
+  "building": zod.string()
+}))
+})
+
+export const UpdateParticipantPassportResponse = zod.object({
+  "userId": zod.number(),
+  "participantName": zod.string().optional(),
+  "pages": zod.array(zod.object({
+  "missionName": zod.string(),
+  "round1": zod.string(),
+  "round2": zod.string(),
+  "uprooting": zod.string(),
+  "building": zod.string()
 })),
   "updatedAt": zod.coerce.date()
 })

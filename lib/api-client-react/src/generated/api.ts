@@ -1761,7 +1761,7 @@ export const getGetMyPassportUrl = () => {
 }
 
 /**
- * @summary Get the current participant's passport
+ * @summary Get the current participant's passport (read-only for the participant)
  */
 export const getMyPassport = async ( options?: RequestInit): Promise<Passport> => {
 
@@ -1808,7 +1808,7 @@ export type GetMyPassportQueryError = ErrorType<void>
 
 
 /**
- * @summary Get the current participant's passport
+ * @summary Get the current participant's passport (read-only for the participant)
  */
 
 export function useGetMyPassport<TData = Awaited<ReturnType<typeof getMyPassport>>, TError = ErrorType<void>>(
@@ -1828,76 +1828,6 @@ export function useGetMyPassport<TData = Awaited<ReturnType<typeof getMyPassport
 
 
 
-
-export const getUpdateMyPassportUrl = () => {
-
-
-
-
-  return `/api/passport`
-}
-
-/**
- * @summary Create or update the current participant's passport
- */
-export const updateMyPassport = async (passportInput: PassportInput, options?: RequestInit): Promise<Passport> => {
-
-  return customFetch<Passport>(getUpdateMyPassportUrl(),
-  {
-    ...options,
-    method: 'PUT',
-    headers: { 'Content-Type': 'application/json', ...options?.headers },
-    body: JSON.stringify(passportInput)
-  }
-);}
-
-
-
-
-export const getUpdateMyPassportMutationOptions = <TError = ErrorType<unknown>,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof updateMyPassport>>, TError,{data: BodyType<PassportInput>}, TContext>, request?: SecondParameter<typeof customFetch>}
-): UseMutationOptions<Awaited<ReturnType<typeof updateMyPassport>>, TError,{data: BodyType<PassportInput>}, TContext> => {
-
-const mutationKey = ['updateMyPassport'];
-const {mutation: mutationOptions, request: requestOptions} = options ?
-      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
-      options
-      : {...options, mutation: {...options.mutation, mutationKey}}
-      : {mutation: { mutationKey, }, request: undefined};
-
-
-
-
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof updateMyPassport>>, {data: BodyType<PassportInput>}> = (props) => {
-          const {data} = props ?? {};
-
-          return  updateMyPassport(data,requestOptions)
-        }
-
-
-
-
-
-
-  return  { mutationFn, ...mutationOptions }}
-
-    export type UpdateMyPassportMutationResult = NonNullable<Awaited<ReturnType<typeof updateMyPassport>>>
-    export type UpdateMyPassportMutationBody = BodyType<PassportInput>
-    export type UpdateMyPassportMutationError = ErrorType<unknown>
-
-    /**
- * @summary Create or update the current participant's passport
- */
-export const useUpdateMyPassport = <TError = ErrorType<unknown>,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof updateMyPassport>>, TError,{data: BodyType<PassportInput>}, TContext>, request?: SecondParameter<typeof customFetch>}
- ): UseMutationResult<
-        Awaited<ReturnType<typeof updateMyPassport>>,
-        TError,
-        {data: BodyType<PassportInput>},
-        TContext
-      > => {
-      return useMutation(getUpdateMyPassportMutationOptions(options));
-    }
 
 export const getGetParticipantPassportUrl = (id: number,) => {
 
@@ -1975,6 +1905,77 @@ export function useGetParticipantPassport<TData = Awaited<ReturnType<typeof getP
 
 
 
+
+export const getUpdateParticipantPassportUrl = (id: number,) => {
+
+
+
+
+  return `/api/participants/${id}/passport`
+}
+
+/**
+ * @summary Create or update a participant's passport (admin only)
+ */
+export const updateParticipantPassport = async (id: number,
+    passportInput: PassportInput, options?: RequestInit): Promise<Passport> => {
+
+  return customFetch<Passport>(getUpdateParticipantPassportUrl(id),
+  {
+    ...options,
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json', ...options?.headers },
+    body: JSON.stringify(passportInput)
+  }
+);}
+
+
+
+
+export const getUpdateParticipantPassportMutationOptions = <TError = ErrorType<void>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof updateParticipantPassport>>, TError,{id: number;data: BodyType<PassportInput>}, TContext>, request?: SecondParameter<typeof customFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof updateParticipantPassport>>, TError,{id: number;data: BodyType<PassportInput>}, TContext> => {
+
+const mutationKey = ['updateParticipantPassport'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof updateParticipantPassport>>, {id: number;data: BodyType<PassportInput>}> = (props) => {
+          const {id,data} = props ?? {};
+
+          return  updateParticipantPassport(id,data,requestOptions)
+        }
+
+
+
+
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type UpdateParticipantPassportMutationResult = NonNullable<Awaited<ReturnType<typeof updateParticipantPassport>>>
+    export type UpdateParticipantPassportMutationBody = BodyType<PassportInput>
+    export type UpdateParticipantPassportMutationError = ErrorType<void>
+
+    /**
+ * @summary Create or update a participant's passport (admin only)
+ */
+export const useUpdateParticipantPassport = <TError = ErrorType<void>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof updateParticipantPassport>>, TError,{id: number;data: BodyType<PassportInput>}, TContext>, request?: SecondParameter<typeof customFetch>}
+ ): UseMutationResult<
+        Awaited<ReturnType<typeof updateParticipantPassport>>,
+        TError,
+        {id: number;data: BodyType<PassportInput>},
+        TContext
+      > => {
+      return useMutation(getUpdateParticipantPassportMutationOptions(options));
+    }
 
 export const getGetDashboardSummaryUrl = () => {
 

@@ -112,10 +112,11 @@ export default function AdminParticipantDetail({ id }: { id: string }) {
                     <DialogHeader className="sr-only">
                       <DialogTitle>{participant.name}'s Passport</DialogTitle>
                       <DialogDescription>
-                        Read-only view of the participant's passport.
+                        Edit the participant's passport. Changes save
+                        automatically.
                       </DialogDescription>
                     </DialogHeader>
-                    <Passport readOnly participantId={pId} />
+                    <Passport participantId={pId} />
                   </DialogContent>
                 </Dialog>
               </div>

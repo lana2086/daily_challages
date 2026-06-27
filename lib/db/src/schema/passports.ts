@@ -5,8 +5,8 @@ export interface PassportPageData {
   missionName: string;
   round1: string;
   round2: string;
-  reflection: string;
   uprooting: string;
+  building: string;
 }
 
 export const passportsTable = pgTable("passports", {

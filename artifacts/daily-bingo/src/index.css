@@ -490,91 +490,61 @@
   letter-spacing: 0.04em;
 }
 
-.passport-write-line {
-  height: 1.7rem;
-  border-bottom: 1.5px solid #c9b079;
-}
-
-/* ── Writing area (keyboard input) ────────────────────────────────── */
-.passport-input {
+/* ── Printed form fields (premium bordered boxes) ─────────────────── */
+.passport-input,
+.passport-textarea {
   width: 100%;
-  border: none;
-  outline: none;
-  padding: 0.2rem 0.3rem;
-  background: transparent;
-  border-bottom: 1.5px solid #c9b079;
+  border: 1.25px solid #c9ad6e;
+  border-radius: 7px;
+  background: rgba(255, 253, 246, 0.62);
+  box-shadow:
+    inset 0 1px 2px rgba(124, 93, 35, 0.08),
+    0 1px 0 rgba(255, 255, 255, 0.45);
   color: #2f220c;
   font-family: var(--font-sans);
   font-size: 0.82rem;
-  line-height: 1.7rem;
   direction: rtl;
   text-align: right;
+  outline: none;
+  transition:
+    border-color 0.15s ease,
+    box-shadow 0.15s ease,
+    background 0.15s ease;
 }
 
-.passport-input:focus {
-  border-bottom-color: #a8842a;
-  background: rgba(255, 253, 246, 0.6);
+.passport-input {
+  padding: 0.34rem 0.55rem;
+  line-height: 1.45;
+}
+
+.passport-textarea {
+  min-height: 54px;
+  resize: none;
+  overflow: hidden;
+  padding: 0.4rem 0.55rem;
+  line-height: 1.55;
+}
+
+.passport-input::placeholder,
+.passport-textarea::placeholder {
+  color: #b3a279;
+}
+
+.passport-input:focus,
+.passport-textarea:focus {
+  border-color: #a8842a;
+  background: rgba(255, 253, 246, 0.95);
+  box-shadow:
+    inset 0 1px 2px rgba(124, 93, 35, 0.06),
+    0 0 0 2px rgba(168, 132, 42, 0.2);
 }
 
 .passport-input:read-only,
 .passport-textarea:read-only {
   cursor: default;
-}
-
-.passport-textarea {
-  width: 100%;
-  min-height: 46px;
-  resize: none;
-  overflow: hidden;
-  border: none;
-  outline: none;
-  padding: 0.25rem 0.3rem;
-  background: repeating-linear-gradient(
-    #fbf7ee,
-    #fbf7ee 22px,
-    #e4d8bd 22px,
-    #e4d8bd 23px
-  );
-  color: #2f220c;
-  font-family: var(--font-sans);
-  font-size: 0.82rem;
-  line-height: 23px;
-  direction: rtl;
-  text-align: right;
-}
-
-.passport-textarea:focus {
-  background: repeating-linear-gradient(
-    #fffdf6,
-    #fffdf6 22px,
-    #d8be7d 22px,
-    #d8be7d 23px
-  );
-}
-
-/* ── Section divider ──────────────────────────────────────────────── */
-.passport-section-divider {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.6rem;
-  margin: 0.1rem 0;
-}
-
-.passport-section-divider::before,
-.passport-section-divider::after {
-  content: "";
-  flex: 1;
-  height: 1px;
-  background: linear-gradient(to right, transparent, #cdb47c, transparent);
-}
-
-.passport-section-divider span {
-  font-family: var(--font-serif);
-  font-size: 0.82rem;
-  font-weight: 700;
-  color: #8a6010;
-  letter-spacing: 0.05em;
+  background: rgba(250, 246, 235, 0.55);
+  border-color: #d6c498;
+  box-shadow: inset 0 1px 2px rgba(124, 93, 35, 0.05);
 }
 
 /* ── Close button ─────────────────────────────────────────────────── */

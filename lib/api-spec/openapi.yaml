@@ -458,7 +458,7 @@ paths:
     get:
       operationId: getMyPassport
       tags: [passport]
-      summary: Get the current participant's passport
+      summary: Get the current participant's passport (read-only for the participant)
       responses:
         "200":
           description: Passport
@@ -468,24 +468,6 @@ paths:
                 $ref: "#/components/schemas/Passport"
         "401":
           description: Not authenticated
-
-    put:
-      operationId: updateMyPassport
-      tags: [passport]
-      summary: Create or update the current participant's passport
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/PassportInput"
-      responses:
-        "200":
-          description: Saved
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Passport"
 
   /participants/{id}/passport:
     get:
@@ -501,6 +483,32 @@ paths:
       responses:
         "200":
           description: Passport
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Passport"
+        "404":
+          description: Not found
+
+    put:
+      operationId: updateParticipantPassport
+      tags: [passport]
+      summary: Create or update a participant's passport (admin only)
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PassportInput"
+      responses:
+        "200":
+          description: Saved
           content:
             application/json:
               schema:
@@ -811,7 +819,7 @@ components:
 
     PassportPage:
       type: object
-      required: [missionName, round1, round2, reflection, uprooting]
+      required: [missionName, round1, round2, uprooting, building]
       properties:
         missionName:
           type: string
@@ -819,9 +827,9 @@ components:
           type: string
         round2:
           type: string
-        reflection:
-          type: string
         uprooting:
+          type: string
+        building:
           type: string
 
     PassportInput:

@@ -4,26 +4,27 @@ import HTMLFlipBook from "react-pageflip";
 import { motion } from "framer-motion";
 import {
   useGetMyPassport,
-  useUpdateMyPassport,
   useGetParticipantPassport,
+  useUpdateParticipantPassport,
   getGetMyPassportQueryKey,
   getGetParticipantPassportQueryKey,
   type PassportPage,
 } from "@workspace/api-client-react";
+import { useAuth } from "@/lib/auth";
 import { Spinner } from "@/components/ui/spinner";
 
 const PAGE_W = 320;
 const PAGE_H = 460;
 const PAGE_COUNT = 4;
 
-type FieldKey = "missionName" | "round1" | "round2" | "reflection" | "uprooting";
+type FieldKey = "missionName" | "round1" | "round2" | "uprooting" | "building";
 
 interface LocalPage {
   missionName: string;
   round1: string;
   round2: string;
-  reflection: string;
   uprooting: string;
+  building: string;
 }
 
 function toLocalPage(p?: Partial<PassportPage>): LocalPage {
@@ -31,8 +32,8 @@ function toLocalPage(p?: Partial<PassportPage>): LocalPage {
     missionName: p?.missionName ?? "",
     round1: p?.round1 ?? "",
     round2: p?.round2 ?? "",
-    reflection: p?.reflection ?? "",
     uprooting: p?.uprooting ?? "",
+    building: p?.building ?? "",
   };
 }
 
@@ -43,7 +44,7 @@ function normalizePages(pages?: PassportPage[]): LocalPage[] {
   return out;
 }
 
-/* ── A single writable field (keyboard only) ────────────────────────── */
+/* ── A single field: printed-form input or textarea (keyboard only) ──── */
 function PassportField({
   variant,
   ariaLabel,
@@ -164,26 +165,23 @@ function PassportPageBody({
       </div>
 
       <div className="passport-field">
-        <label className="passport-field-label">تأمل</label>
-        <PassportField
-          variant="textarea"
-          ariaLabel="تأمل"
-          value={page.reflection}
-          onChange={(v) => onField("reflection", v)}
-          readOnly={readOnly}
-        />
-      </div>
-
-      <div className="passport-section-divider">
-        <span>الاقتلاع</span>
-      </div>
-
-      <div className="passport-field">
+        <label className="passport-field-label">الاقتلاع</label>
         <PassportField
           variant="textarea"
           ariaLabel="الاقتلاع"
           value={page.uprooting}
           onChange={(v) => onField("uprooting", v)}
+          readOnly={readOnly}
+        />
+      </div>
+
+      <div className="passport-field">
+        <label className="passport-field-label">البناء</label>
+        <PassportField
+          variant="textarea"
+          ariaLabel="البناء"
+          value={page.building}
+          onChange={(v) => onField("building", v)}
           readOnly={readOnly}
         />
       </div>
@@ -197,45 +195,58 @@ function PassportPageBody({
   );
 }
 
+/**
+ * Teacher-driven passport.
+ * - When `participantId` is given AND the current user is an admin (teacher),
+ *   the passport is editable and autosaves to that participant's record.
+ * - Otherwise (a participant viewing their own passport) it is read-only and
+ *   reflects exactly what the teacher entered.
+ */
 export default function Passport({
-  readOnly = false,
   participantId,
 }: {
-  readOnly?: boolean;
   participantId?: number;
 }) {
-  const isAdmin = readOnly && participantId != null;
+  const { user } = useAuth();
   const queryClient = useQueryClient();
 
+  const viewingParticipant = participantId != null;
+  const canEdit = user?.role === "admin" && viewingParticipant;
+  const readOnly = !canEdit;
+
   const myQuery = useGetMyPassport({
-    query: { enabled: !isAdmin, queryKey: getGetMyPassportQueryKey() },
+    query: { enabled: !viewingParticipant, queryKey: getGetMyPassportQueryKey() },
   });
-  const adminQuery = useGetParticipantPassport(participantId ?? 0, {
+  const participantQuery = useGetParticipantPassport(participantId ?? 0, {
     query: {
-      enabled: isAdmin,
+      enabled: viewingParticipant,
       queryKey: getGetParticipantPassportQueryKey(participantId ?? 0),
     },
   });
 
-  const data = isAdmin ? adminQuery.data : myQuery.data;
-  const isLoading = isAdmin ? adminQuery.isLoading : myQuery.isLoading;
+  const data = viewingParticipant ? participantQuery.data : myQuery.data;
+  const isLoading = viewingParticipant
+    ? participantQuery.isLoading
+    : myQuery.isLoading;
 
-  const updateMutation = useUpdateMyPassport();
+  const updateMutation = useUpdateParticipantPassport();
   const mutateRef = useRef(updateMutation.mutate);
   mutateRef.current = updateMutation.mutate;
 
   const [pages, setPages] = useState<LocalPage[] | null>(null);
   const pagesRef = useRef<LocalPage[] | null>(null);
   const initRef = useRef(false);
-  const [isOpen, setIsOpen] = useState(readOnly);
+  // Admin opens straight into the book (inside a dialog); participants see the
+  // cover first on their dashboard.
+  const [isOpen, setIsOpen] = useState(canEdit);
   const lastUpdatedAtRef = useRef<string | null>(null);
 
   const saveTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   // Initialise local state from the server. In editable mode this runs once so
-  // a background refetch never clobbers in-progress edits. In read-only (admin)
-  // mode it re-hydrates whenever the server returns a newer version, so the
-  // admin always sees the latest saved passport.
+  // a background refetch never clobbers in-progress edits. In read-only mode it
+  // re-hydrates whenever the server returns a newer version, so the participant
+  // always sees the latest passport the teacher saved.
   useEffect(() => {
     if (!data) return;
     const serverUpdatedAt = (data as { updatedAt?: string }).updatedAt ?? null;
@@ -261,14 +272,18 @@ export default function Passport({
     }
   }, [data, readOnly]);
 
-  // Persist the given pages and update the cached query so a remount within the
-  // same session (participant leaving and returning) starts from fresh data.
+  // Persist the given pages to the participant's record and update the cached
+  // query so a remount within the same session starts from fresh data.
   const saveNow = (next: LocalPage[]) => {
+    if (participantId == null) return;
     mutateRef.current(
-      { data: { pages: next } },
+      { id: participantId, data: { pages: next } },
       {
         onSuccess: (saved) => {
-          queryClient.setQueryData(getGetMyPassportQueryKey(), saved);
+          queryClient.setQueryData(
+            getGetParticipantPassportQueryKey(participantId),
+            saved,
+          );
           lastUpdatedAtRef.current =
             (saved as { updatedAt?: string }).updatedAt ?? null;
         },
@@ -411,9 +426,9 @@ export default function Passport({
 
   const stage = isLoading || !pages ? loadingView : !isOpen ? cover : book;
 
-  // In read-only (admin) mode, render just the book without the card chrome,
-  // since it lives inside a dialog.
-  if (readOnly) {
+  // When the admin edits inside the participant dialog, render just the book
+  // without the dashboard card chrome.
+  if (canEdit) {
     return <div className="passport-readonly-stage">{stage}</div>;
   }
 
