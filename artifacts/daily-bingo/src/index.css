@@ -447,10 +447,23 @@
   border-bottom: 1.5px solid #e0d2b0;
 }
 
+.passport-page-head {
+  align-items: center;
+  justify-content: space-between;
+}
+
 .passport-cross-mark {
   font-size: 1.15rem;
   color: #b8921a;
   opacity: 0.75;
+}
+
+.passport-page-num {
+  font-family: var(--font-serif);
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: #b09554;
+  letter-spacing: 0.05em;
 }
 
 /* ── Fields ───────────────────────────────────────────────────────── */
@@ -487,6 +500,31 @@
   display: flex;
   flex-direction: column;
   gap: 0.4rem;
+}
+
+.passport-input {
+  width: 100%;
+  border: none;
+  outline: none;
+  padding: 0.2rem 0.3rem;
+  background: transparent;
+  border-bottom: 1.5px solid #c9b079;
+  color: #2f220c;
+  font-family: var(--font-sans);
+  font-size: 0.82rem;
+  line-height: 1.7rem;
+  direction: rtl;
+  text-align: right;
+}
+
+.passport-input:focus {
+  border-bottom-color: #a8842a;
+  background: rgba(255, 253, 246, 0.6);
+}
+
+.passport-input:read-only,
+.passport-textarea:read-only {
+  cursor: default;
 }
 
 .passport-textarea {
@@ -634,6 +672,13 @@
 .passport-close-btn:hover {
   transform: translateY(-2px);
   box-shadow: 0 6px 16px rgba(40, 16, 70, 0.45);
+}
+
+/* ── Read-only (admin) stage ──────────────────────────────────────── */
+.passport-readonly-stage {
+  display: flex;
+  justify-content: center;
+  padding: 1rem 0.5rem;
 }
 
 /* ── Responsive ───────────────────────────────────────────────────── */

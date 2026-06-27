@@ -1,0 +1,92 @@
+The Passport feature is not yet complete.
+
+Please finish the implementation without changing the application's current design.
+
+Participant Dashboard
+
+Every Passport page must support BOTH:
+
+- Keyboard typing.
+- Handwriting.
+
+Do NOT replace one with the other.
+
+Every field must contain:
+
+- Mission Name (keyboard editable + handwriting support)
+- Round 1 (keyboard editable + handwriting support)
+- Round 2 (keyboard editable + handwriting support)
+- Reflection (textarea + handwriting canvas)
+- الاقتلاع (textarea + handwriting canvas)
+
+The user should be free to either type with the keyboard or write by hand.
+
+Keep the existing handwriting tools:
+
+- Pen
+- Eraser
+- Undo
+- Redo
+- Clear
+
+Remove all placeholder text.
+
+The Passport should contain FOUR pages instead of two.
+
+---
+
+Saving
+
+Save everything:
+
+- Mission Name
+- Round 1
+- Round 2
+- Reflection text
+- الاقتلاع text
+- Handwriting drawings
+- All four pages
+
+The participant should be able to leave the application and return later with all Passport content preserved.
+
+---
+
+Admin Panel
+
+The Passport section inside the Admin Participant page is incomplete.
+
+Complete it.
+
+The "Open Passport" button must work.
+
+When the Admin clicks Open Passport:
+
+- Open the participant's Passport.
+- Display all four pages.
+- Show all keyboard text.
+- Show all handwriting drawings.
+- Allow page flipping.
+- The Admin must NOT be able to edit anything.
+- The Passport should be read-only for Admin.
+
+Whenever the participant updates their Passport, the Admin should always see the latest saved version.
+
+---
+
+Backend
+
+Create the necessary database tables, API endpoints, queries, and mutations for Passport data.
+
+Follow the same architecture used by the Reflection feature.
+
+---
+
+Quality Requirements
+
+- No TypeScript errors.
+- No React warnings.
+- No broken layout.
+- No regressions.
+- Fully responsive.
+- Production-ready implementation.
+- Do not modify the Hero, Bingo Board, Daily Reflection, or overall Dashboard design.

@@ -452,6 +452,62 @@ paths:
               schema:
                 $ref: "#/components/schemas/Reflection"
 
+  # ── Passport ──────────────────────────────────────────────────────────────────
+
+  /passport:
+    get:
+      operationId: getMyPassport
+      tags: [passport]
+      summary: Get the current participant's passport
+      responses:
+        "200":
+          description: Passport
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Passport"
+        "401":
+          description: Not authenticated
+
+    put:
+      operationId: updateMyPassport
+      tags: [passport]
+      summary: Create or update the current participant's passport
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PassportInput"
+      responses:
+        "200":
+          description: Saved
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Passport"
+
+  /participants/{id}/passport:
+    get:
+      operationId: getParticipantPassport
+      tags: [passport]
+      summary: Get a participant's passport (admin only)
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Passport
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Passport"
+        "404":
+          description: Not found
+
   # ── Dashboard ─────────────────────────────────────────────────────────────────
 
   /dashboard/summary:
@@ -734,6 +790,51 @@ components:
           type: string
         impact:
           type: string
+
+    # ── Passport ───────────────────────────────────────────────────────────────
+
+    Passport:
+      type: object
+      required: [userId, pages, updatedAt]
+      properties:
+        userId:
+          type: integer
+        participantName:
+          type: string
+        pages:
+          type: array
+          items:
+            $ref: "#/components/schemas/PassportPage"
+        updatedAt:
+          type: string
+          format: date-time
+
+    PassportPage:
+      type: object
+      required: [missionName, round1, round2, reflection, uprooting, drawings]
+      properties:
+        missionName:
+          type: string
+        round1:
+          type: string
+        round2:
+          type: string
+        reflection:
+          type: string
+        uprooting:
+          type: string
+        drawings:
+          type: object
+          additionalProperties: true
+
+    PassportInput:
+      type: object
+      required: [pages]
+      properties:
+        pages:
+          type: array
+          items:
+            $ref: "#/components/schemas/PassportPage"
 
     # ── Dashboard ──────────────────────────────────────────────────────────────
 

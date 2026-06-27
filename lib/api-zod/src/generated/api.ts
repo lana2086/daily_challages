@@ -424,6 +424,75 @@ export const UpdateReflectionResponse = zod.object({
 
 
 /**
+ * @summary Get the current participant's passport
+ */
+export const GetMyPassportResponse = zod.object({
+  "userId": zod.number(),
+  "participantName": zod.string().optional(),
+  "pages": zod.array(zod.object({
+  "missionName": zod.string(),
+  "round1": zod.string(),
+  "round2": zod.string(),
+  "reflection": zod.string(),
+  "uprooting": zod.string(),
+  "drawings": zod.record(zod.string(), zod.unknown())
+})),
+  "updatedAt": zod.coerce.date()
+})
+
+
+/**
+ * @summary Create or update the current participant's passport
+ */
+export const UpdateMyPassportBody = zod.object({
+  "pages": zod.array(zod.object({
+  "missionName": zod.string(),
+  "round1": zod.string(),
+  "round2": zod.string(),
+  "reflection": zod.string(),
+  "uprooting": zod.string(),
+  "drawings": zod.record(zod.string(), zod.unknown())
+}))
+})
+
+export const UpdateMyPassportResponse = zod.object({
+  "userId": zod.number(),
+  "participantName": zod.string().optional(),
+  "pages": zod.array(zod.object({
+  "missionName": zod.string(),
+  "round1": zod.string(),
+  "round2": zod.string(),
+  "reflection": zod.string(),
+  "uprooting": zod.string(),
+  "drawings": zod.record(zod.string(), zod.unknown())
+})),
+  "updatedAt": zod.coerce.date()
+})
+
+
+/**
+ * @summary Get a participant's passport (admin only)
+ */
+export const GetParticipantPassportParams = zod.object({
+  "id": zod.coerce.number()
+})
+
+export const GetParticipantPassportResponse = zod.object({
+  "userId": zod.number(),
+  "participantName": zod.string().optional(),
+  "pages": zod.array(zod.object({
+  "missionName": zod.string(),
+  "round1": zod.string(),
+  "round2": zod.string(),
+  "reflection": zod.string(),
+  "uprooting": zod.string(),
+  "drawings": zod.record(zod.string(), zod.unknown())
+})),
+  "updatedAt": zod.coerce.date()
+})
+
+
+/**
  * @summary Get dashboard summary (admin gets group stats, participant gets personal stats)
  */
 export const GetDashboardSummaryResponse = zod.object({

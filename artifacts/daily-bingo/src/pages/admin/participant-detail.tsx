@@ -8,6 +8,15 @@ import {
 import { Spinner } from "@/components/ui/spinner";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import Passport from "@/components/passport.tsx";
 import { ChevronLeft, Plus } from "lucide-react";
 import { Link } from "wouter";
 
@@ -95,7 +104,20 @@ export default function AdminParticipantDetail({ id }: { id: string }) {
 
             <CardContent>
               <div className="flex justify-center">
-                <Button>Open Passport</Button>
+                <Dialog>
+                  <DialogTrigger asChild>
+                    <Button>Open Passport</Button>
+                  </DialogTrigger>
+                  <DialogContent className="max-w-md p-0 overflow-y-auto max-h-[90vh] bg-transparent border-none shadow-none">
+                    <DialogHeader className="sr-only">
+                      <DialogTitle>{participant.name}'s Passport</DialogTitle>
+                      <DialogDescription>
+                        Read-only view of the participant's passport.
+                      </DialogDescription>
+                    </DialogHeader>
+                    <Passport readOnly participantId={pId} />
+                  </DialogContent>
+                </Dialog>
               </div>
             </CardContent>
           </Card>

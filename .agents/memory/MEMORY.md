@@ -1,0 +1,4 @@
+- [daily-bingo type imports](daily-bingo-imports.md) — the daily-bingo artifact depends ONLY on @workspace/api-client-react; import generated types/hooks from there, not @workspace/api-zod.
+- [react-sketch-canvas loadPaths](react-sketch-canvas.md) — loadPaths() fires onChange once; guard with a justLoadedRef so a programmatic load is not mistaken for a user edit.
+- [drizzle-kit push blocked](db-push-env.md) — drizzle-kit push hangs on a TTY prompt in this env; apply DB schema changes with psql/executeSql directly.
+- [admin read-only freshness](readonly-freshness.md) — read-only/admin views of user-editable data must re-hydrate when server updatedAt changes; one-time init locks in stale data.
