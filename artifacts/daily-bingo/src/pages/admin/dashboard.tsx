@@ -1,4 +1,4 @@
-import { useGetDashboardSummary, getGetDashboardSummaryQueryKey } from "@workspace/api-client-react";
+import { useGetDashboardSummary, getGetDashboardSummaryQueryKey } from "@/api";
 import { AdminLayout } from "@/components/layout";
 import { Spinner } from "@/components/ui/spinner";
 import { Users, Grid3X3, CheckCircle2, BookOpen } from "lucide-react";

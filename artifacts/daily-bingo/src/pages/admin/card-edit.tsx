@@ -1,5 +1,5 @@
 import { AdminLayout } from "@/components/layout";
-import { useGetBingoCard, useUpdateBingoBox, getGetBingoCardQueryKey, BingoBoxUpdateCategory, BingoBox } from "@workspace/api-client-react";
+import { useGetBingoCard, useUpdateBingoBox, getGetBingoCardQueryKey, BingoBoxUpdateCategory, BingoBox } from "@/api";
 import { Card, CardContent } from "@/components/ui/card";
 import { Spinner } from "@/components/ui/spinner";
 import { ChevronLeft, Save } from "lucide-react";

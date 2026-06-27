@@ -4,7 +4,7 @@ import {
   useGetParticipantProgress,
   getGetParticipantQueryKey,
   getGetParticipantProgressQueryKey,
-} from "@workspace/api-client-react";
+} from "@/api";
 import { Spinner } from "@/components/ui/spinner";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";

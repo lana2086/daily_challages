@@ -5,7 +5,7 @@ import {
   useCompleteBingoBox,
   getGetBingoCardQueryKey,
   getListBingoCardsQueryKey,
-} from "@workspace/api-client-react";
+} from "@/api";
 import { Button } from "@/components/ui/button";
 import { Lock, CheckCircle2, Sparkles, Star, BookOpen, Activity, Heart, Users } from "lucide-react";
 import { useQueryClient } from "@tanstack/react-query";

@@ -1,5 +1,5 @@
 import { AdminLayout } from "@/components/layout";
-import { useListReflections, getListReflectionsQueryKey } from "@workspace/api-client-react";
+import { useListReflections, getListReflectionsQueryKey } from "@/api";
 import { Spinner } from "@/components/ui/spinner";
 import { BookOpen } from "lucide-react";
 

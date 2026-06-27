@@ -1,5 +1,5 @@
 import { AdminLayout } from "@/components/layout";
-import { useListParticipants, useCreateBingoCard, getListParticipantsQueryKey, getListBingoCardsQueryKey, BingoBoxInputCategory } from "@workspace/api-client-react";
+import { useListParticipants, useCreateBingoCard, getListParticipantsQueryKey, getListBingoCardsQueryKey, BingoBoxInputCategory } from "@/api";
 import { useLocation, useSearch } from "wouter";
 import { useForm, useFieldArray } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";

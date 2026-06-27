@@ -9,7 +9,7 @@ import {
   getGetMyPassportQueryKey,
   getGetParticipantPassportQueryKey,
   type PassportPage,
-} from "@workspace/api-client-react";
+} from "@/api";
 import { useAuth } from "@/lib/auth";
 import { Spinner } from "@/components/ui/spinner";
 

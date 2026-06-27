@@ -10,7 +10,7 @@ import {
   getGetBingoCardQueryKey,
   BingoBoxInputCategory,
   BingoBoxUpdateCategory,
-} from "@workspace/api-client-react";
+} from "@/api";
 import { useQueryClient } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";

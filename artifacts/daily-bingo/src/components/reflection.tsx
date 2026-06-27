@@ -5,7 +5,7 @@ import {
   useCreateReflection,
   getListReflectionsQueryKey,
   getGetDashboardSummaryQueryKey,
-} from "@workspace/api-client-react";
+} from "@/api";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";

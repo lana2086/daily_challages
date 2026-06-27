@@ -5,7 +5,7 @@ import {
   useGetBingoCard,
   getListBingoCardsQueryKey,
   getGetBingoCardQueryKey,
-} from "@workspace/api-client-react";
+} from "@/api";
 import { Spinner } from "@/components/ui/spinner";
 import { BingoCardGrid, getTodayBoxIndex } from "@/components/bingo";
 import { ReflectionForm } from "@/components/reflection";

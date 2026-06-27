@@ -1,5 +1,5 @@
 import { createContext, useContext, ReactNode, useEffect } from "react";
-import { useGetMe, useLogin, useLogout, LoginInput, User } from "@workspace/api-client-react";
+import { useGetMe, useLogin, useLogout, LoginInput, User } from "@/api";
 import { useLocation } from "wouter";
 import { useToast } from "@/hooks/use-toast";
 import { useQueryClient } from "@tanstack/react-query";
