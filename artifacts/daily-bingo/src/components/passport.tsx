@@ -198,6 +198,17 @@ function PassportPageBody({
       </div>
 
       <div className="passport-field">
+        <label className="passport-field-label">البناء</label>
+        <PassportField
+          variant="textarea"
+          ariaLabel="البناء"
+          value={page.building}
+          onChange={(v) => onField("building", v)}
+          readOnly={readOnly}
+        />
+      </div>
+
+      <div className="passport-field">
         <label className="passport-field-label">الاقتلاع</label>
         <PassportField
           variant="textarea"
