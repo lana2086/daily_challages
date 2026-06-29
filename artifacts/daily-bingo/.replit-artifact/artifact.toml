@@ -15,11 +15,11 @@ paths = [ "/" ]
 localPort = 26034
 
 [services.development]
-run = "pnpm --filter @workspace/daily-bingo run dev"
+run = "pnpm --filter daily-bingo run dev"
 
 [services.production]
-build = [ "pnpm", "--filter", "@workspace/daily-bingo", "run", "build" ]
-publicDir = "artifacts/daily-bingo/dist/public"
+build = [ "pnpm", "--filter", "daily-bingo", "run", "build" ]
+publicDir = "artifacts/daily-bingo/dist"
 serve = "static"
 
 [[services.production.rewrites]]
