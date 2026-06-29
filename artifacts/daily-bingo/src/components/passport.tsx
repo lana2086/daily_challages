@@ -409,6 +409,7 @@ export default function Passport({
         swipeDistance={30}
         showPageCorners={true}
         disableFlipByClick={false}
+        renderOnlyPageLengthChange={canEdit}
       >
         {(pages ?? []).map((page, i) => (
           <PassportLeaf key={i}>
