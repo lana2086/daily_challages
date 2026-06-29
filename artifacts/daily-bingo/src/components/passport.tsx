@@ -98,6 +98,13 @@ function PassportField({
     return () => events.forEach((ev) => el.removeEventListener(ev, stop));
   }, [readOnly]);
 
+  // Editable fields live inside react-pageflip, which (with
+  // renderOnlyPageLengthChange) freezes its captured children. A controlled
+  // value would then be reverted to that frozen value on every keystroke, so
+  // editable fields are uncontrolled (defaultValue) and propagate via onChange.
+  // Read-only fields stay controlled so server refreshes render live.
+  const valueProps = readOnly ? { value } : { defaultValue: value };
+
   if (variant === "input") {
     return (
       <input
@@ -105,7 +112,7 @@ function PassportField({
           elRef.current = el;
         }}
         className="passport-input"
-        value={value}
+        {...valueProps}
         onChange={(e) => onChange(e.target.value)}
         readOnly={readOnly}
         aria-label={ariaLabel}
@@ -120,7 +127,7 @@ function PassportField({
         elRef.current = el;
       }}
       className="passport-textarea"
-      value={value}
+      {...valueProps}
       onChange={(e) => onChange(e.target.value)}
       readOnly={readOnly}
       rows={3}
